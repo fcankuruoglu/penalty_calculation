@@ -6,10 +6,12 @@ import com.penaltycalculation.domains.models.Weekend;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class CountryDTO {
+    private Long id;
     private String name;
     private String currency;
     private BigDecimal penaltyAmount;
@@ -19,6 +21,7 @@ public class CountryDTO {
     public static CountryDTO fromEntityToDTO(Country country){
         CountryDTO countryDTO = new CountryDTO();
         if (country == null){return countryDTO;}
+        countryDTO.setId(countryDTO.getId());
         countryDTO.setName(country.getName());
         countryDTO.setCurrency(country.getCurrency());
         countryDTO.setPenaltyAmount(country.getPenaltyAmount());
@@ -27,4 +30,5 @@ public class CountryDTO {
 
         return countryDTO;
     }
+
 }

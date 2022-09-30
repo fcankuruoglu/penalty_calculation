@@ -2,6 +2,7 @@ package com.penaltycalculation.services;
 
 import com.penaltycalculation.daos.CountryDao;
 import com.penaltycalculation.domains.dtos.CountryDTO;
+import com.penaltycalculation.domains.dtos.CountryDisplayDTO;
 import com.penaltycalculation.domains.models.Country;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,12 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDTO getById(Long id) {
-        return CountryDTO.fromEntityToDTO(this.countryDao.getById(id));
+        return CountryDTO.fromEntityToDTO(this.countryDao.findCountryById(id));
     }
 
     @Override
-    public List<Country> getAllById(Long id) {
-        return this.countryDao.getAllById(id);
+    public List<CountryDisplayDTO> getAll() {
+        return CountryDisplayDTO.fromEntityListToDTOList(this.countryDao.findAll());
     }
 
     @Override

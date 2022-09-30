@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import java.util.Date;
@@ -27,22 +28,20 @@ public class PenaltyController {
         this.countryService = countryService;
     }
 
-    @GetMapping("/calculate")
-    public ResponseDTO penaltyCalculate(@RequestParam LocalDate checkedOutDate, @RequestParam Date returnedDate, @PathVariable Long countryId) throws ParseException {
-        //@DateTimeFormatter
-        ResponseDTO responseDTO = new ResponseDTO();
+    @GetMapping("/calculate/{id}")
+    public ResponseDTO penaltyCalculate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkedOutDate,
+                                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate returnedDate,
+                                        @PathVariable(value = "id") Long countryId) throws ParseException {
+
         CountryDTO country = countryService.getById(countryId);
         List<HolidayDTO> holidayDTOList =holidayService.getAllByCountryId(countryId);
-
-        //LocalDate checkedOutDate = LocalDate.parse(checkOut);
-        //LocalDate returnedDate = LocalDate.parse(returned);
-
         int businessDays = utils.findBusinessDays(checkedOutDate, returnedDate, holidayDTOList, country.getWeekends());
         BigDecimal penalty = utils.calculatePenalty(businessDays, countryService.getById(countryId).getPenaltyAmount());
-        System.out.println("days: "+businessDays + " /penalty: "+penalty);
+
+        ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setBusinessDays(businessDays);
         responseDTO.setPenalty(penalty);
-        responseDTO.setCurrency(countryService.getById(countryId).getCurrency());
+        responseDTO.setCurrency(country.getCurrency());
         return responseDTO;
     }
 }
