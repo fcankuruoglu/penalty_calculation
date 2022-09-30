@@ -18,10 +18,12 @@ public class Country {
     private Long id;
     @Column(name = "country_name")
     private String name;
-    @Column(name = "country_currency")
+    @Column(name = "currency")
     private String currency;
-    @Column(name = "country_penalty_amount")
-    private BigDecimal penalty_amount;
+    @Column(name = "penalty_amount")
+    private BigDecimal penaltyAmount;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
     private List<Holiday> holidays;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country")
+    private List<Weekend> weekends;
 }

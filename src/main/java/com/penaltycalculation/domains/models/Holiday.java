@@ -1,25 +1,30 @@
 package com.penaltycalculation.domains.models;
 
 import com.penaltycalculation.domains.models.Country;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Table(name = "holidays")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Holiday {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "holiday_id")
+    @Column(name = "holiday_name")
     private String name;
     @Column(name = "holiday_date")
-    private Date date;
+    private LocalDate date;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
