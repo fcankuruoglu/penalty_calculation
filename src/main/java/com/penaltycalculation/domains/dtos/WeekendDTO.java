@@ -1,11 +1,8 @@
 package com.penaltycalculation.domains.dtos;
 
-import com.penaltycalculation.domains.models.Country;
-import com.penaltycalculation.domains.models.Holiday;
 import com.penaltycalculation.domains.models.Weekend;
 import lombok.Data;
 
-import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;

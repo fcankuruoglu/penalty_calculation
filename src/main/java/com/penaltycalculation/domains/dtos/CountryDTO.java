@@ -2,11 +2,9 @@ package com.penaltycalculation.domains.dtos;
 
 
 import com.penaltycalculation.domains.models.Country;
-import com.penaltycalculation.domains.models.Weekend;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data

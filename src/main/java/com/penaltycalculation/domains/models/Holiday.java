@@ -1,6 +1,5 @@
 package com.penaltycalculation.domains.models;
 
-import com.penaltycalculation.domains.models.Country;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "holidays")

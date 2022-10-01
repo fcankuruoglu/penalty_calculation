@@ -4,8 +4,10 @@ import com.penaltycalculation.daos.CountryDao;
 import com.penaltycalculation.domains.dtos.CountryDTO;
 import com.penaltycalculation.domains.dtos.CountryDisplayDTO;
 import com.penaltycalculation.domains.models.Country;
+import com.penaltycalculation.exception.custom.CountryNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -16,20 +18,16 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDTO getById(Long id) {
+        Country tmp = this.countryDao.findCountryById(id);
+        if(ObjectUtils.isEmpty(tmp)) {
+            throw new CountryNotFoundException(id);
+        }
         return CountryDTO.fromEntityToDTO(this.countryDao.findCountryById(id));
     }
 
     @Override
     public List<CountryDisplayDTO> getAll() {
-        return CountryDisplayDTO.fromEntityListToDTOList(this.countryDao.findAll());
+        return CountryDisplayDTO.fromEntityListToDTOList(this.countryDao.findAllByOrderByIdAsc());
     }
 
-    @Override
-    public CountryDTO getByName(String name) {
-        return CountryDTO.fromEntityToDTO(this.countryDao.findByName(name));
-    }
-    @Override
-    public boolean isExist(Long id){
-        return this.countryDao.existsById(id);
-    }
 }
